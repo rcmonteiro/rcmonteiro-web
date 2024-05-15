@@ -1,7 +1,8 @@
 {
   "name": "rcmonteiro-web",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,13 +10,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@phosphor-icons/react": "2.1.5-alpha.3",
+    "dayjs": "^1.11.11",
+    "gray-matter": "^4.0.3",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
-    "@types/node": "^20",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.12.12",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
