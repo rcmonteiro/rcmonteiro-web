@@ -19,7 +19,12 @@ export class MarkdownParser {
       throw new Error('Invalid markdown file: Missing required metadata')
     }
 
-    const body = await remark().use(html).process(content)
+    const htmlText = await remark().use(html).process(content)
+    const regex = /(#.*?)(\n|$)/g
+
+    const highlightedText = htmlText
+      .toString()
+      .replace(regex, `<span>$1</span>$2`)
 
     return {
       title: data.title,
@@ -27,7 +32,7 @@ export class MarkdownParser {
       date: data.date,
       project: data.project,
       excerpt: data.excerpt,
-      content: body.toString(),
+      content: highlightedText,
     }
   }
 }
