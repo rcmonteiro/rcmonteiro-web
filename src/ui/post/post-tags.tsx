@@ -9,7 +9,7 @@ export const PostTags = ({ children }: IPostTags) => {
         return (
           <span
             key={tag}
-            className="py-2 px-4 rounded-full bg-main text-default"
+            className="flex items-center h-8 px-4 leading-8 rounded-full bg-main text-default"
           >
             {tag}
           </span>

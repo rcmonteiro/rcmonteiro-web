@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^14.2.3",
     "@phosphor-icons/react": "2.1.5-alpha.3",
     "dayjs": "^1.11.11",
     "gray-matter": "^4.0.3",
