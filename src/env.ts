@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    APP_URL: z.string().url().default('https://rcmonteiro.com'),
+    APP_URL: z.string().url(),
   },
 
   client: {
