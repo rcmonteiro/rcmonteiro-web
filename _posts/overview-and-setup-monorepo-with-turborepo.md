@@ -52,7 +52,9 @@ TravelBookingHub is designed to simplify travel planning by unifying various ser
 
 ```bash
 mkdir travel-booking-hub
+
 cd travel-booking-hub
+
 pnpm dlx create-turbo@latest ./
 ```
 Some cleanup:
