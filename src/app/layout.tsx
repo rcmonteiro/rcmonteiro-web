@@ -1,7 +1,7 @@
 import '@/shared/dayjs'
 import { Footer } from '@/ui/layout/footer'
 import { Header } from '@/ui/layout/header'
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 import { JetBrains_Mono as Mono, Poppins } from 'next/font/google'
 import './globals.css'
@@ -33,7 +33,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
-        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM ?? ''} />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA4 ?? ''} />
       </body>
     </html>
   )

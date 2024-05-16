@@ -30,4 +30,11 @@ export class FilePostRepository implements PostRepository {
     const posts = await Promise.all(postPromises)
     return posts.slice(0, limit)
   }
+
+  async findAllSlugs(): Promise<{ slug: string }[]> {
+    const postSlugs = fs.readdirSync(this.postsDirectory)
+    return postSlugs.map((slug) => ({
+      slug: slug.replace(/\.md$/, ''),
+    }))
+  }
 }

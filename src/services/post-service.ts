@@ -11,4 +11,8 @@ export class PostService {
   public async findRecent(limit: number): Promise<Post[]> {
     return await this.postRepository.findRecent(limit)
   }
+
+  public async findAllSlugs(): Promise<{ slug: string }[]> {
+    return await this.postRepository.findAllSlugs()
+  }
 }
