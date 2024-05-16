@@ -43,11 +43,34 @@ export default async function OgImage({ params }: GetPostParams) {
         />
         <div
           style={{
-            color: '#F2F2F2',
-            fontSize: 72,
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '60px',
+            alignItems: 'flex-start',
           }}
         >
-          {title}
+          <div
+            style={{
+              position: 'relative',
+              marginTop: '30px',
+              width: '200px',
+              height: '200px',
+              borderRadius: '9999px',
+              border: '4px solid #97EB34',
+              backgroundSize: 'cover',
+              backgroundImage: `url(${env.APP_URL}/rcmonteiro-avatar.png)`,
+              backgroundPosition: '0 0',
+              backgroundRepeat: 'no-repeat',
+            }}
+          />
+          <div
+            style={{
+              color: '#F2F2F2',
+              fontSize: 72,
+            }}
+          >
+            {title}
+          </div>
         </div>
       </div>
     ),

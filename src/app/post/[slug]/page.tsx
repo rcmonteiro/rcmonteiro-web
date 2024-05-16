@@ -29,6 +29,13 @@ export async function generateMetadata({
     title: post.title,
     description: post.excerpt,
     metadataBase: new URL(env.APP_URL),
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      tags: post.tags.flat(),
+      type: 'article',
+      siteName: 'rcmonteiro',
+    },
   }
 }
 
