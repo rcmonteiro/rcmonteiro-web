@@ -1,3 +1,4 @@
+import { env } from '@/env'
 import '@/shared/dayjs'
 import { Footer } from '@/ui/layout/footer'
 import { Header } from '@/ui/layout/header'
@@ -33,7 +34,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA4 ?? ''} />
+        <GoogleAnalytics gaId={env.NEXT_PUBLIC_GA4 ?? ''} />
       </body>
     </html>
   )
