@@ -15,8 +15,8 @@ const mono = Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'rcmonteiro',
-  description: 'My work',
+  title: 'rcmonteiro #til',
+  description: "Here's what I'm currently working on",
 }
 
 export default function RootLayout({
