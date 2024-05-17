@@ -1,4 +1,4 @@
-import matter from 'gray-matter'
+import matter, { type GrayMatterFile } from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 
@@ -7,15 +7,21 @@ export interface ParsedMarkdown {
   content: string
   excerpt: string
   project: string
+  updatedAt: string
   tags: string[]
-  date: string
+  repoUrl: string
+  next?: string
+  prev?: string
 }
 
 export class MarkdownParser {
-  public static async parse(fileContents: string): Promise<ParsedMarkdown> {
-    const { data, content } = matter(fileContents)
+  public static async parse(
+    fileContents: string,
+  ): Promise<{ data: Partial<ParsedMarkdown> }> {
+    const { data: parsedData, content }: GrayMatterFile<string> =
+      matter(fileContents)
 
-    if (!data.title) {
+    if (!parsedData.title) {
       throw new Error('Invalid markdown file: Missing required metadata')
     }
 
@@ -27,12 +33,10 @@ export class MarkdownParser {
       .replace(regex, `<span>$1</span>$2`)
 
     return {
-      title: data.title,
-      tags: data.tags,
-      date: data.date,
-      project: data.project,
-      excerpt: data.excerpt,
-      content: highlightedText,
+      data: {
+        content: highlightedText,
+        ...parsedData,
+      },
     }
   }
 }

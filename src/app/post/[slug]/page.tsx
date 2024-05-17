@@ -3,6 +3,7 @@ import { FilePostRepository } from '@/infra/repositories/file-post-repository'
 import type { GetPostParams } from '@/infra/types/post'
 import { PostService } from '@/services/post-service'
 import { PostBody } from '@/ui/post/post-body'
+import { PostFooter } from '@/ui/post/post-footer'
 import { PostProject } from '@/ui/post/post-project'
 import { PostTags } from '@/ui/post/post-tags'
 import { PostTitle } from '@/ui/post/post-title'
@@ -49,10 +50,11 @@ export default async function Post({ params }: GetPostParams) {
 
   return (
     <main>
-      <PostProject project={post.project} date={post.date} />
+      <PostProject project={post.project} date={post.updatedAt} />
       <PostTitle>{post.title}</PostTitle>
       <PostTags>{post.tags}</PostTags>
       <PostBody>{post.body}</PostBody>
+      <PostFooter repoUrl={post.repoUrl} next={post.next} prev={post.prev} />
     </main>
   )
 }

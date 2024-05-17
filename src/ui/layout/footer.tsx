@@ -9,7 +9,7 @@ export const Footer = () => {
         className="text-highlight"
         href="https://github.com/rcmonteiro/rcmonteiro-web"
       >
-        Fork on GitHub
+        View source on GitHub
       </Link>
     </footer>
   )

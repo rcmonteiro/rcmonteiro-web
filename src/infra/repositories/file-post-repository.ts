@@ -13,9 +13,10 @@ export class FilePostRepository implements PostRepository {
       return null
     }
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { title, date, content, excerpt, project, tags } =
-      await MarkdownParser.parse(fileContents)
-    return new Post(slug, title, content, excerpt, date, project, tags)
+    const fileStats = fs.statSync(filePath)
+    const updatedAt = new Date(fileStats.mtimeMs)
+    const { data } = await MarkdownParser.parse(fileContents)
+    return new Post(slug, data, updatedAt.toString())
   }
 
   async findRecent(limit: number): Promise<Post[]> {
@@ -28,7 +29,10 @@ export class FilePostRepository implements PostRepository {
       return post
     })
     const posts = await Promise.all(postPromises)
-    return posts.slice(0, limit)
+    return posts
+      .sort((a, b) => a.updatedAt.getTime() - b.updatedAt.getTime())
+      .reverse()
+      .slice(0, limit)
   }
 
   async findAllSlugs(): Promise<{ slug: string }[]> {

@@ -1,28 +1,28 @@
+import type { ParsedMarkdown } from '@/infra/providers/markdown-parser'
+
 export class Post {
   private _id: string
   private _title: string
   private _body: string
+  private _repoUrl: string
   private _excerpt: string
-  private _date: Date
+  private _updatedAt: Date
   private _project: string
+  private _next?: string
+  private _prev?: string
   private _tags: string[]
 
-  constructor(
-    slug: string,
-    title: string,
-    body: string,
-    excerpt: string,
-    date: string,
-    project: string,
-    tags: string[],
-  ) {
+  constructor(slug: string, data: Partial<ParsedMarkdown>, updatedAt: string) {
     this._id = slug
-    this._title = title
-    this._body = body
-    this._excerpt = excerpt
-    this._date = new Date(date)
-    this._project = project
-    this._tags = tags
+    this._title = data.title ?? ''
+    this._body = data.content ?? ''
+    this._excerpt = data.excerpt ?? ''
+    this._updatedAt = new Date(updatedAt)
+    this._project = data.project ?? ''
+    this._tags = data.tags ?? []
+    this._repoUrl = data.repoUrl ?? ''
+    this._next = data.next ?? ''
+    this._prev = data.prev ?? ''
   }
 
   get id(): string {
@@ -37,12 +37,16 @@ export class Post {
     return this._body
   }
 
+  get repoUrl(): string {
+    return this._repoUrl
+  }
+
   get excerpt(): string {
     return this._excerpt
   }
 
-  get date(): Date {
-    return this._date
+  get updatedAt(): Date {
+    return this._updatedAt
   }
 
   get project(): string {
@@ -51,5 +55,13 @@ export class Post {
 
   get tags(): string[] {
     return this._tags
+  }
+
+  get next(): string | undefined {
+    return this._next
+  }
+
+  get prev(): string | undefined {
+    return this._prev
   }
 }

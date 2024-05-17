@@ -1,19 +1,20 @@
 ---
 title: "Overview and setup monorepo with Turborepo"
-date: "2024-05-14T18:50:00.000Z"
 project: "Travel Booking Hub"
 excerpt: "Travel Booking Hub is designed to simplify travel planning by unifying various services into a seamless platform"
-tags: ["Project overview", "Monorepo", "TurboRepo"]
+tags: ["TurboRepo", "Eslint", "TypeScript", "Zod"]
+repoUrl: "https://github.com/rcmonteiro/travel-booking-hub"
+next: "building-microservices-and-api-gateway"
 ---
 
 ## Why monorepo?
 
-Since this is a project to create some microservices with domain event communication, and I'am the only developer working on the back-end, front-end and IaC, it doesn't make any sense to work on several repositories.  Using turborepo will improve my productivity in this project a lot!
+Since this is a project to create microservices with domain event communication, and I am the only developer working on the back-end and front-end, it doesn't make sense to work with multiple repositories. Using Turborepo will significantly improve my productivity in this project!
 
 
 ##  What's my goal with this project?
 
-To learn more about how to properly make a real case scenario for using microservices
+To learn more about properly implementing microservices in a real-case scenario.
 
 ##  Project overview
 
@@ -39,6 +40,13 @@ TravelBookingHub is designed to simplify travel planning by unifying various ser
   - Utilizes RabbitMQ for inter-service communication.
   - Ensures real-time updates and data consistency across services.
 
+## Domain events example
+
+Here we can see the API Gateway sending requests to the User and Hotel Services. Both services send and consume events from RabbitMQ.
+
+![Flowchart](/posts/travel-booking-hub.svg)
+
+
 ##  Tech Stack
 
 - TypeScript, always o/
@@ -48,7 +56,7 @@ TravelBookingHub is designed to simplify travel planning by unifying various ser
 - Postgres to persist data on each microservice
 - RabbitMQ for the event bus solution
 
-## Day 01 - setting up turborepo
+## Setting up turborepo
 
 ```bash
 mkdir travel-booking-hub
@@ -57,10 +65,6 @@ cd travel-booking-hub
 
 pnpm dlx create-turbo@latest ./
 ```
-Some cleanup:
-- Deleted:
-  - ./packages/ui
-  - ./apps
 
 Project structure:
 ```json
@@ -86,45 +90,6 @@ TravelBookingHub/
 └── ...
 ```
 
-### Setting up prettier
+### Setting up shared packages
 
-```json
-# ./packages/prettier/package.json
-{
-  "name": "@travel-booking-hub/prettier",
-  "version": "0.0.1",
-  "main": "index.mjs",
-  "private": true,
-  "devDependencies": {
-    "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.14"
-  }
-}
-
-# ./packages/prettier/index.mjs
-/** @typedef {import('prettier').Config} PrettierConfig */
-
-/** @type {PrettierConfig} */
-const config = {
-  plugins: ['prettier-plugin-tailwindcss'],
-  printWidth: 80,
-  tabWidth: 2,
-  useTabs: false,
-  semi: true,
-  singleQuote: true,
-  quoteProps: 'as-needed',
-  jsxSingleQuote: false,
-  trailingComma: 'es5',
-  bracketSpacing: true,
-  arrowParens: 'always',
-  endOfLine: 'auto',
-  bracketSameLine: false,
-}
-
-export default config
-```
-
-Now on ./packages/prettier folder, just run
-```bash
-pnpm i
-```
+All packages will be shared between the back-end and front-end applications. I'll use a ready-to-use ESLint configuration from Rocketseat, along with a basic setup for Prettier and TypeScript. The env package will be used to share a single .env file, validated with Zod, across all other packages in this project. To achieve this, I'll use @t3-oss/env-nextjs to export the environment variables. Check the repository for more information in /.env-sample and /packages/env/index.ts.
