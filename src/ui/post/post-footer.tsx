@@ -1,3 +1,8 @@
+import { slugToTitle } from '@/shared/slug-to-title'
+import {
+  CaretCircleLeft,
+  CaretCircleRight,
+} from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { ButtonLink } from '../button'
 
@@ -14,14 +19,20 @@ export const PostFooter = ({ repoUrl, next, prev }: IPostFooter) => {
         <div>
           {prev && (
             <Link href={prev} passHref legacyBehavior>
-              <ButtonLink>Previous Post</ButtonLink>
+              <ButtonLink>
+                <CaretCircleLeft size={24} />
+                {slugToTitle(prev)}
+              </ButtonLink>
             </Link>
           )}
         </div>
         <div>
           {next && (
             <Link href={next} passHref legacyBehavior>
-              <ButtonLink>Next Post</ButtonLink>
+              <ButtonLink>
+                {slugToTitle(next)}
+                <CaretCircleRight size={24} />
+              </ButtonLink>
             </Link>
           )}
         </div>

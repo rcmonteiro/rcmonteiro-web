@@ -14,7 +14,7 @@ export class FilePostRepository implements PostRepository {
     }
     const fileContents = fs.readFileSync(filePath, 'utf8')
     const fileStats = fs.statSync(filePath)
-    const updatedAt = new Date(fileStats.mtimeMs)
+    const updatedAt = new Date(fileStats.birthtime)
     const { data } = await MarkdownParser.parse(fileContents)
     return new Post(slug, data, updatedAt.toString())
   }

@@ -77,15 +77,13 @@ TravelBookingHub/
 │ ├── env/
 │ └── ...
 │
-├── apps/ 
-│ ├── web/
-│ ├── event-bus/
-│ ├── api-gateway/
-│ ├── services/
-│ │ ├── user-service/
-│ │ ├── flight-service/
-│ │ ├── hotel-service/
-│ │ └── ...
+├── web/
+├── event-bus/
+├── api-gateway/
+├── services/
+│ ├── user-service/
+│ ├── flight-service/
+│ ├── hotel-service/
 │ └── ...
 └── ...
 ```
