@@ -15,7 +15,7 @@ interface IPostFooter {
 export const PostFooter = ({ repoUrl, next, prev }: IPostFooter) => {
   return (
     <>
-      <div className="flex justify-between mb-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between mb-8">
         <div>
           {prev && (
             <Link href={prev} passHref legacyBehavior>

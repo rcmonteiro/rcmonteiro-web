@@ -5,7 +5,7 @@ project: "Travel Booking Hub"
 excerpt: "In this stage of the project, we'll dive into building microservices and an API gateway from scratch."
 tags: ["API Gateway", "Fastify", "TypeScript", "Zod"]
 repoUrl: "https://github.com/rcmonteiro/travel-booking-hub"
-prev: "building-microservices-and-api-gateway"
+prev: "i-love-docker"
 ---
 
 Today, I took a small leap into the world of microservices! 🚀 To begin, I spun up two basic yet crucial services: an authentication service and an API Gateway.
