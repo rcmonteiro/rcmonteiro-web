@@ -15,8 +15,19 @@ const mono = Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'rcmonteiro #til',
+  title: {
+    template: '%s | rcmonteiro',
+    default: 'rcmonteiro',
+  },
   description: "Here's what I'm currently working on",
+  metadataBase: new URL(env.APP_URL),
+  openGraph: {
+    title: 'rcmonteiro',
+    description: "Here's what I'm currently working on",
+    type: 'website',
+    url: new URL(env.APP_URL),
+    siteName: 'rcmonteiro',
+  },
 }
 
 export default function RootLayout({
