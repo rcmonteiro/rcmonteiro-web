@@ -12,12 +12,12 @@ export class Post {
   private _prev?: string
   private _tags: string[]
 
-  constructor(slug: string, data: Partial<ParsedMarkdown>, updatedAt: string) {
+  constructor(slug: string, data: Partial<ParsedMarkdown>) {
     this._id = slug
     this._title = data.title ?? ''
     this._body = data.content ?? ''
     this._excerpt = data.excerpt ?? ''
-    this._updatedAt = new Date(updatedAt)
+    this._updatedAt = data.updatedAt ? new Date(data.updatedAt) : new Date()
     this._project = data.project ?? ''
     this._tags = data.tags ?? []
     this._repoUrl = data.repoUrl ?? ''

@@ -13,10 +13,8 @@ export class FilePostRepository implements PostRepository {
       return null
     }
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const fileStats = fs.statSync(filePath)
-    const updatedAt = new Date(fileStats.birthtime)
     const { data } = await MarkdownParser.parse(fileContents)
-    return new Post(slug, data, updatedAt.toString())
+    return new Post(slug, data)
   }
 
   async findRecent(limit: number): Promise<Post[]> {
