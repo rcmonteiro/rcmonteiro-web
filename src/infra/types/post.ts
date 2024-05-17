@@ -3,3 +3,9 @@ export interface GetPostParams {
     slug: string
   }
 }
+
+export interface ListByTagParams {
+  params: {
+    tag: string
+  }
+}

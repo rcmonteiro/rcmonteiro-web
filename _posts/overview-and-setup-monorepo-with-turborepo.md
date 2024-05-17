@@ -3,7 +3,7 @@ updatedAt: "2024-05-14T16:40:57.000Z"
 title: "Overview and setup monorepo with Turborepo"
 project: "Travel Booking Hub"
 excerpt: "Travel Booking Hub is designed to simplify travel planning by unifying various services into a seamless platform"
-tags: ["TurboRepo", "Eslint", "TypeScript", "Zod"]
+tags: ["Turborepo", "Eslint", "Typescript", "Zod"]
 repoUrl: "https://github.com/rcmonteiro/travel-booking-hub"
 next: "i-love-docker"
 ---

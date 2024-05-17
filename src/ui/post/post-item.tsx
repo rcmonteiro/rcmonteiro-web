@@ -18,10 +18,12 @@ export interface IPostItem {
 export const PostItem = ({ post }: IPostItem) => {
   return (
     <div className="border-b-1 border-base">
+      <PostProject project={post.project} date={post.updatedAt} />
       <Link className="no-underline" href={`/post/${post.id}`}>
-        <PostProject project={post.project} date={post.updatedAt} />
         <PostTitle>{post.title}</PostTitle>
-        <PostTags>{post.tags}</PostTags>
+      </Link>
+      <PostTags>{post.tags}</PostTags>
+      <Link className="no-underline" href={`/post/${post.id}`}>
         <PostExcerpt>{post.excerpt}</PostExcerpt>
       </Link>
     </div>

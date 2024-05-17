@@ -15,4 +15,8 @@ export class PostService {
   public async findAllSlugs(): Promise<{ slug: string }[]> {
     return await this.postRepository.findAllSlugs()
   }
+
+  public async findByTag(tag: string): Promise<Post[]> {
+    return await this.postRepository.findByTag(tag)
+  }
 }

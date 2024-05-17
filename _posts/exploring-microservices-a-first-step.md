@@ -3,7 +3,7 @@ updatedAt: "2024-05-16T15:35:27.000Z"
 title: "Exploring Microservices: A First Step"
 project: "Travel Booking Hub"
 excerpt: "In this stage of the project, we'll dive into building microservices and an API gateway from scratch."
-tags: ["API Gateway", "Fastify", "TypeScript", "Zod"]
+tags: ["API Gateway", "Fastify", "Typescript", "Zod"]
 repoUrl: "https://github.com/rcmonteiro/travel-booking-hub"
 prev: "i-love-docker"
 ---
