@@ -4,7 +4,9 @@ import Link from 'next/link'
 export const Footer = () => {
   return (
     <footer className="flex flex-col sm:flex-row mx-4 py-8 gap-4 items-center justify-end">
-      <span>&copy; {dayjs().year()} rcmonteiro. All rights reserved.</span>
+      <span>
+        &copy; {dayjs().year()} rcmonteiro. Open-source under the MIT License.
+      </span>
       <Link
         className="text-highlight"
         href="https://github.com/rcmonteiro/rcmonteiro-web"
