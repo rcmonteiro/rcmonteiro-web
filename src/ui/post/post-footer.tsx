@@ -1,4 +1,5 @@
 import { slugToTitle } from '@/shared/slug-to-title'
+import { truncateText } from '@/shared/truncate-text'
 import {
   CaretCircleLeft,
   CaretCircleRight,
@@ -21,7 +22,7 @@ export const PostFooter = ({ repoUrl, next, prev }: IPostFooter) => {
             <Link href={prev} passHref legacyBehavior>
               <ButtonLink>
                 <CaretCircleLeft size={24} />
-                {slugToTitle(prev)}
+                {truncateText(slugToTitle(prev), 24)}
               </ButtonLink>
             </Link>
           )}
@@ -30,7 +31,7 @@ export const PostFooter = ({ repoUrl, next, prev }: IPostFooter) => {
           {next && (
             <Link href={next} passHref legacyBehavior>
               <ButtonLink>
-                {slugToTitle(next)}
+                {truncateText(slugToTitle(next), 24)}
                 <CaretCircleRight size={24} />
               </ButtonLink>
             </Link>
