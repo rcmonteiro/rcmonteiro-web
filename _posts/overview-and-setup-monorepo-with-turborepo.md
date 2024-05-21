@@ -31,13 +31,7 @@ TravelBookingHub is designed to simplify travel planning by unifying various ser
 - Flight Service:
   - Manages flight search, booking, and reservation confirmations.
   - Publishes flight reservation events to the event bus.
-- Hotel Service:
-  - Handles hotel search, availability checks, and bookings.
-  - Publishes hotel reservation events to the event bus.
-- Car Rental Service:
-  - Manages car rental search, bookings, and confirmations.
-  - Publishes car rental reservation events to the event bus.
-- Event Bus:
+- Message Broker:
   - Utilizes RabbitMQ for inter-service communication.
   - Ensures real-time updates and data consistency across services.
 
@@ -72,18 +66,18 @@ Project structure:
 TravelBookingHub/
 │
 ├── packages/ 
+│ ├── core/
 │ ├── eslint-config/
 │ ├── typescript-config/
 │ ├── prettier/
+│ ├── message-broker/
 │ ├── env/
 │ └── ...
 │
 ├── web/
-├── event-bus/
 ├── api-gateway/
 ├── services/
 │ ├── user-service/
-│ ├── flight-service/
 │ ├── hotel-service/
 │ └── ...
 └── ...

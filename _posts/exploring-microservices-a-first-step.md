@@ -6,6 +6,7 @@ excerpt: "In this stage of the project, we'll dive into building microservices a
 tags: ["API Gateway", "Fastify", "Typescript", "Zod"]
 repoUrl: "https://github.com/rcmonteiro/travel-booking-hub"
 prev: "i-love-docker"
+next: "using-domain-events-with-rabbitmq"
 ---
 
 Today, I took a small leap into the world of microservices! 🚀 To begin, I spun up two basic yet crucial services: an authentication service and an API Gateway.
