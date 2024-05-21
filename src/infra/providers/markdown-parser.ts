@@ -26,15 +26,15 @@ export class MarkdownParser {
     }
 
     const htmlText = await remark().use(html).process(content)
-    const regex = /(#.*?)(\n|$)/g
+    // const regex = /(#.*?)(\n|$)/g
 
-    const highlightedText = htmlText
-      .toString()
-      .replace(regex, `<span>$1</span>$2`)
+    // const highlightedText = htmlText
+    //   .toString()
+    //   .replace(regex, `<span>$1</span>$2`)
 
     return {
       data: {
-        content: highlightedText,
+        content: htmlText.toString(),
         ...parsedData,
       },
     }
