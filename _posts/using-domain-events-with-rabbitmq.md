@@ -150,4 +150,8 @@ app.listen({ port: env.HOTEL_SERVICE_PORT }).then(async () => {
 })
 ```
 
+Here we can see all together in action:
+
+![DomainEvents](/posts/domain-events.gif)
+
 By following these steps, you can effectively manage event-driven communication between microservices using RabbitMQ in a Node.js monorepo. This approach ensures a scalable and maintainable architecture for your application.
