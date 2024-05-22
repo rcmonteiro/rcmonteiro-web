@@ -65,17 +65,19 @@ Project structure:
 ```json
 TravelBookingHub/
 │
-├── packages/ 
-│ ├── core/
+├── config/ 
 │ ├── eslint-config/
 │ ├── typescript-config/
 │ ├── prettier/
+│ └── ...
+│
+├── packages/ 
+│ ├── api-gateway/
+│ ├── core/
 │ ├── message-broker/
 │ ├── env/
 │ └── ...
 │
-├── web/
-├── api-gateway/
 ├── services/
 │ ├── user-service/
 │ ├── hotel-service/
