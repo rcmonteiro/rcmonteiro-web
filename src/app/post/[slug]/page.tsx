@@ -1,7 +1,7 @@
 import { env } from '@/env'
 import { FilePostRepository } from '@/infra/repositories/file-post-repository'
 import type { GetPostParams } from '@/infra/types/post'
-import { PostService } from '@/services/post-service'
+import { BlogService } from '@/services/blog-service'
 import { PostBody } from '@/ui/post/post-body'
 import { PostFooter } from '@/ui/post/post-footer'
 import { PostProject } from '@/ui/post/post-project'
@@ -10,17 +10,17 @@ import { PostTitle } from '@/ui/post/post-title'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-const postService = new PostService(new FilePostRepository())
+const blogService = new BlogService(new FilePostRepository())
 
 export async function generateStaticParams() {
-  return await postService.findAllSlugs()
+  return await blogService.fetchPostSlugs()
 }
 
 export async function generateMetadata({
   params,
 }: GetPostParams): Promise<Metadata> {
   const slug = params.slug
-  const post = await postService.findBySlug(slug)
+  const post = await blogService.getPostBySlug(slug)
 
   if (!post) {
     return notFound()
@@ -42,7 +42,7 @@ export async function generateMetadata({
 
 export default async function Post({ params }: GetPostParams) {
   const slug = params.slug
-  const post = await postService.findBySlug(slug)
+  const post = await blogService.getPostBySlug(slug)
 
   if (!post) {
     return notFound()

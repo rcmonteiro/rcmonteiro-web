@@ -8,7 +8,7 @@ import { MarkdownParser } from '../providers/markdown-parser'
 export class FilePostRepository implements PostRepository {
   private postsDirectory = path.join(process.cwd(), '_posts')
 
-  async findBySlug(slug: string): Promise<Post | null> {
+  async getPostBySlug(slug: string): Promise<Post | null> {
     const filePath = path.join(this.postsDirectory, `${slug}.md`)
     if (!fs.existsSync(filePath)) {
       return null
@@ -18,10 +18,10 @@ export class FilePostRepository implements PostRepository {
     return new Post(slug, data)
   }
 
-  async findRecent(limit: number): Promise<Post[]> {
+  async fetchRecentPosts(limit: number): Promise<Post[]> {
     const slugs = fs.readdirSync(this.postsDirectory)
     const postPromises = slugs.map(async (slug) => {
-      const post = await this.findBySlug(slug.replace(/\.md$/, ''))
+      const post = await this.getPostBySlug(slug.replace(/\.md$/, ''))
       if (!post) {
         throw new Error(`Post with slug ${slug} not found`)
       }
@@ -34,10 +34,10 @@ export class FilePostRepository implements PostRepository {
       .slice(0, limit)
   }
 
-  async findByTag(tag: string): Promise<Post[]> {
+  async fetchPostsByTag(tag: string): Promise<Post[]> {
     const slugs = fs.readdirSync(this.postsDirectory)
     const postPromises = slugs.map(async (slug) => {
-      const post = await this.findBySlug(slug.replace(/\.md$/, ''))
+      const post = await this.getPostBySlug(slug.replace(/\.md$/, ''))
       if (!post) {
         throw new Error(`Post with slug ${slug} not found`)
       }
@@ -50,7 +50,7 @@ export class FilePostRepository implements PostRepository {
       .reverse()
   }
 
-  async findAllSlugs(): Promise<{ slug: string }[]> {
+  async fetchPostSlugs(): Promise<{ slug: string }[]> {
     const postSlugs = fs.readdirSync(this.postsDirectory)
     return postSlugs.map((slug) => ({
       slug: slug.replace(/\.md$/, ''),

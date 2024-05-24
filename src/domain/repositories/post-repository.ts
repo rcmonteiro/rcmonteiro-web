@@ -1,8 +1,8 @@
 import type { Post } from '../entities/post'
 
 export interface PostRepository {
-  findBySlug(slug: string): Promise<Post | null>
-  findRecent(limit: number): Promise<Post[]>
-  findByTag(tag: string): Promise<Post[]>
-  findAllSlugs(): Promise<{ slug: string }[]>
+  getPostBySlug(slug: string): Promise<Post | null>
+  fetchRecentPosts(limit: number): Promise<Post[]>
+  fetchPostsByTag(tag: string): Promise<Post[]>
+  fetchPostSlugs(): Promise<{ slug: string }[]>
 }

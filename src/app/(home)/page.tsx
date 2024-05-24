@@ -1,11 +1,10 @@
-import { FilePostRepository } from '@/infra/repositories/file-post-repository'
-import { PostService } from '@/services/post-service'
+import { makeFetchRecentPostsUseCase } from '@/domain/use-cases/factories/make-fetch-recent-posts-use-case'
 import { Hero } from '@/ui/home/hero'
 import { PostItem } from '@/ui/post/post-item'
 
 export default async function Home() {
-  const postService = new PostService(new FilePostRepository())
-  const posts = await postService.findRecent(10)
+  const fetchRecentPosts = makeFetchRecentPostsUseCase()
+  const posts = await fetchRecentPosts.execute({ limit: 10 })
   return (
     <main className="space-y-24">
       <Hero />

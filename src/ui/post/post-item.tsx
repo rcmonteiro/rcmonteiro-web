@@ -17,7 +17,7 @@ export interface IPostItem {
 
 export const PostItem = ({ post }: IPostItem) => {
   return (
-    <div className="border-b-1 border-base">
+    <div className="border-b-1 border-base" data-testid="post-item">
       <PostProject project={post.project} date={post.updatedAt} />
       <Link className="no-underline" href={`/post/${post.id}`}>
         <PostTitle>{post.title}</PostTitle>
