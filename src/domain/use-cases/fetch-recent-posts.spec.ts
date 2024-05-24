@@ -1,5 +1,6 @@
-import { makePost } from '@/test/factories/make-post'
-import { InMemoryPostRepository } from '@/test/repositories/in-memory-post-repository'
+import { makePost } from '@/tests/factories/make-post'
+import { InMemoryPostRepository } from '@/tests/repositories/in-memory-post-repository'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Post } from '../entities/post'
 import { FetchRecentPostsUseCase } from './fetch-recent-posts'
 

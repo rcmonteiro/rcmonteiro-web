@@ -38,7 +38,10 @@ export const PostFooter = ({ repoUrl, next, prev }: IPostFooter) => {
           )}
         </div>
       </div>
-      <div className="border-t-2 border-dark-100 px-8">
+      <div
+        className="border-t-2 border-dark-100 px-8"
+        data-testid="post-contribute"
+      >
         <h2>Contribute to the Project</h2>
         <p>
           If you found this post helpful or have suggestions for improvement,
