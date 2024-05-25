@@ -1,3 +1,4 @@
+import { TextValidator } from '@/shared/utils/text-validator'
 import { ValueObject } from '../types/value-object'
 
 export class Url extends ValueObject<string> {
@@ -12,9 +13,7 @@ export class Url extends ValueObject<string> {
   }
 
   static isValid(url: string): boolean {
-    const urlPattern =
-      /^(https?:\/\/)?(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})(:\d{2,5})?(\/[^\s]*)?$/
-    return urlPattern.test(url)
+    return TextValidator.isUrl(url)
   }
 
   public get value(): string {
