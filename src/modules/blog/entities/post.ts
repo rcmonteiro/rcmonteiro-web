@@ -1,8 +1,8 @@
-import { Entity } from './entity'
-import { Project } from './project'
-import type { Id } from './types/id'
-import type { PostRelated } from './value-objects/post-related'
-import { Slug } from './value-objects/slug'
+import { Entity } from '@/shared/domain/entities/entity'
+import type { Id } from '@/shared/domain/entities/types/id'
+import type { PostRelated } from '@/shared/domain/entities/value-objects/post-related'
+import { Slug } from '@/shared/domain/entities/value-objects/slug'
+import type { Project } from './project'
 
 interface IPost {
   title: string

@@ -1,7 +1,7 @@
-import { Post } from '@/domain/entities/post'
-import { Project } from '@/domain/entities/project'
-import { PostRelated } from '@/domain/entities/value-objects/post-related'
-import { Slug } from '@/domain/entities/value-objects/slug'
+import { Post } from '@/modules/blog/entities/post'
+import { Project } from '@/modules/blog/entities/project'
+import { PostRelated } from '@/shared/domain/entities/value-objects/post-related'
+import { Slug } from '@/shared/domain/entities/value-objects/slug'
 
 export interface IRawPost {
   title: string

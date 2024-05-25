@@ -1,4 +1,4 @@
-import { makeFetchRecentPostsUseCase } from '@/domain/use-cases/factories/make-fetch-recent-posts-use-case'
+import { makeFetchRecentPostsUseCase } from '@/modules/blog/use-cases/factories/make-fetch-recent-posts-use-case'
 import { Hero } from '@/ui/home/hero'
 import { PostItem } from '@/ui/post/post-item'
 

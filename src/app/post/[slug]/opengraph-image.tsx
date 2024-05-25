@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import type { GetPostParams } from '@/infra/types/post'
+import type { GetPostParams } from '@/infra/dtos/post'
 import { slugToTitle } from '@/shared/slug-to-title'
 import { ImageResponse } from 'next/og'
 

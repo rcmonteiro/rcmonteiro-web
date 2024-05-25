@@ -1,9 +1,9 @@
-import { Post } from '@/domain/entities/post'
+import type { Post } from '@/modules/blog/entities/post'
 import {
   PostMapper,
   type IRawPost,
-} from '@/domain/repositories/mappers/post-mapper'
-import type { PostRepository } from '@/domain/repositories/post-repository'
+} from '@/modules/blog/repositories/mappers/post-mapper'
+import type { PostRepository } from '@/modules/blog/repositories/post-repository'
 import { slugToTitle } from '@/shared/slug-to-title'
 import path from 'node:path'
 import { MarkdownFileReader } from '../providers/markdown-file-reader'

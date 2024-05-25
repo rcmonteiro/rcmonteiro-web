@@ -1,5 +1,5 @@
-import { makeFetchPostsByTagUseCase } from '@/domain/use-cases/factories/make-fetch-posts-by-tag-use-case'
-import type { ListByTagParams } from '@/infra/types/post'
+import type { ListByTagParams } from '@/infra/dtos/post'
+import { makeFetchPostsByTagUseCase } from '@/modules/blog/use-cases/factories/make-fetch-posts-by-tag-use-case'
 import { slugToTitle } from '@/shared/slug-to-title'
 import { PostItem } from '@/ui/post/post-item'
 

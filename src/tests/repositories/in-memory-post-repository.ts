@@ -1,5 +1,5 @@
-import { Post } from '@/domain/entities/post'
-import type { PostRepository } from '@/domain/repositories/post-repository'
+import { Post } from '@/core/entities/post'
+import type { PostRepository } from '@/core/repositories/post-repository'
 
 export class InMemoryPostRepository implements PostRepository {
   public items: Post[] = []

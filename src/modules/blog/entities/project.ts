@@ -1,5 +1,5 @@
-import { ValueObject } from './types/value-object'
-import { Url } from './value-objects/url'
+import { ValueObject } from '@/shared/domain/entities/types/value-object'
+import { Url } from '@/shared/domain/entities/value-objects/url'
 
 interface IProject {
   title: string

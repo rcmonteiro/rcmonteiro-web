@@ -1,4 +1,4 @@
-import type { PostRepository } from '@/domain/repositories/post-repository'
+import type { PostRepository } from '@/modules/blog/repositories/post-repository'
 
 export class BlogService {
   constructor(private postRepository: PostRepository) {}

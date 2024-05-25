@@ -1,4 +1,4 @@
-import type { Post } from '../entities/post'
+import type { Post } from '../../modules/blog/post'
 
 export interface PostRepository {
   getPostBySlug(slug: string): Promise<Post | null>
