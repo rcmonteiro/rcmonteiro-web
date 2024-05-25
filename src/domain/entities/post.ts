@@ -1,67 +1,58 @@
-import type { ParsedMarkdown } from '@/infra/providers/markdown-parser'
+import { Entity } from './entity'
+import { Project } from './project'
+import type { Id } from './types/id'
+import type { PostRelated } from './value-objects/post-related'
+import { Slug } from './value-objects/slug'
 
-export class Post {
-  private _id: string
-  private _title: string
-  private _body: string
-  private _repoUrl: string
-  private _excerpt: string
-  private _updatedAt: Date
-  private _project: string
-  private _next?: string
-  private _prev?: string
-  private _tags: string[]
+interface IPost {
+  title: string
+  slug: Slug
+  body: string
+  excerpt: string
+  updatedAt: Date
+  project: Project
+  related: PostRelated
+  tags: string[]
+}
 
-  constructor(slug: string, data: Partial<ParsedMarkdown>) {
-    this._id = slug
-    this._title = data.title ?? ''
-    this._body = data.content ?? ''
-    this._excerpt = data.excerpt ?? ''
-    this._updatedAt = data.updatedAt ? new Date(data.updatedAt) : new Date()
-    this._project = data.project ?? ''
-    this._tags = data.tags ?? []
-    this._repoUrl = data.repoUrl ?? ''
-    this._next = data.next ?? ''
-    this._prev = data.prev ?? ''
+export class Post extends Entity<IPost> {
+  private constructor(state: IPost, id?: Id) {
+    super(state, id)
   }
 
-  get id(): string {
-    return this._id
+  static create(state: IPost, id?: Id) {
+    return new Post(state, id)
   }
 
   get title(): string {
-    return this._title
+    return this.state.title
+  }
+
+  get slug(): Slug {
+    return this.state.slug
   }
 
   get body(): string {
-    return this._body
-  }
-
-  get repoUrl(): string {
-    return this._repoUrl
+    return this.state.body
   }
 
   get excerpt(): string {
-    return this._excerpt
+    return this.state.excerpt
   }
 
   get updatedAt(): Date {
-    return this._updatedAt
+    return this.state.updatedAt
   }
 
-  get project(): string {
-    return this._project
+  get project(): Project {
+    return this.state.project
   }
 
   get tags(): string[] {
-    return this._tags
+    return this.state.tags
   }
 
-  get next(): string | undefined {
-    return this._next
-  }
-
-  get prev(): string | undefined {
-    return this._prev
+  get related(): PostRelated {
+    return this.state.related
   }
 }

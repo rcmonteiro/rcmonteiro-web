@@ -1,3 +1,4 @@
+import { makeGetPostBySlugUseCase } from '@/domain/use-cases/factories/make-get-post-by-slug-use-case'
 import { env } from '@/env'
 import { FilePostRepository } from '@/infra/repositories/file-post-repository'
 import type { GetPostParams } from '@/infra/types/post'
@@ -20,7 +21,9 @@ export async function generateMetadata({
   params,
 }: GetPostParams): Promise<Metadata> {
   const slug = params.slug
-  const post = await blogService.getPostBySlug(slug)
+
+  const getPostBySlug = makeGetPostBySlugUseCase()
+  const post = await getPostBySlug.execute({ slug })
 
   if (!post) {
     return notFound()
@@ -42,19 +45,23 @@ export async function generateMetadata({
 
 export default async function Post({ params }: GetPostParams) {
   const slug = params.slug
-  const post = await blogService.getPostBySlug(slug)
-
+  const getPostBySlug = makeGetPostBySlugUseCase()
+  const post = await getPostBySlug.execute({ slug })
   if (!post) {
     return notFound()
   }
 
   return (
     <main>
-      <PostProject project={post.project} date={post.updatedAt} />
+      <PostProject project={post.project.title} date={post.updatedAt} />
       <PostTitle>{post.title}</PostTitle>
       <PostTags>{post.tags}</PostTags>
       <PostBody>{post.body}</PostBody>
-      <PostFooter repoUrl={post.repoUrl} next={post.next} prev={post.prev} />
+      <PostFooter
+        repoUrl={post.project.repoUrl.value}
+        next={post.related.next}
+        prev={post.related.prev}
+      />
     </main>
   )
 }

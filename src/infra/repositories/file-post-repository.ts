@@ -1,26 +1,28 @@
 import { Post } from '@/domain/entities/post'
+import {
+  PostMapper,
+  type IRawPost,
+} from '@/domain/repositories/mappers/post-mapper'
 import type { PostRepository } from '@/domain/repositories/post-repository'
 import { slugToTitle } from '@/shared/slug-to-title'
-import * as fs from 'node:fs'
 import path from 'node:path'
-import { MarkdownParser } from '../providers/markdown-parser'
+import { MarkdownFileReader } from '../providers/markdown-file-reader'
 
 export class FilePostRepository implements PostRepository {
   private postsDirectory = path.join(process.cwd(), '_posts')
 
   async getPostBySlug(slug: string): Promise<Post | null> {
     const filePath = path.join(this.postsDirectory, `${slug}.md`)
-    if (!fs.existsSync(filePath)) {
+    const parsedData = await MarkdownFileReader.parseFile<IRawPost>(filePath)
+    if (!parsedData) {
       return null
     }
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { data } = await MarkdownParser.parse(fileContents)
-    return new Post(slug, data)
+    return PostMapper.toDomain(parsedData)
   }
 
   async fetchRecentPosts(limit: number): Promise<Post[]> {
-    const slugs = fs.readdirSync(this.postsDirectory)
-    const postPromises = slugs.map(async (slug) => {
+    const files = MarkdownFileReader.parseDirectory(this.postsDirectory)
+    const postPromises = files.map(async (slug) => {
       const post = await this.getPostBySlug(slug.replace(/\.md$/, ''))
       if (!post) {
         throw new Error(`Post with slug ${slug} not found`)
@@ -35,8 +37,8 @@ export class FilePostRepository implements PostRepository {
   }
 
   async fetchPostsByTag(tag: string): Promise<Post[]> {
-    const slugs = fs.readdirSync(this.postsDirectory)
-    const postPromises = slugs.map(async (slug) => {
+    const files = MarkdownFileReader.parseDirectory(this.postsDirectory)
+    const postPromises = files.map(async (slug) => {
       const post = await this.getPostBySlug(slug.replace(/\.md$/, ''))
       if (!post) {
         throw new Error(`Post with slug ${slug} not found`)
@@ -51,8 +53,8 @@ export class FilePostRepository implements PostRepository {
   }
 
   async fetchPostSlugs(): Promise<{ slug: string }[]> {
-    const postSlugs = fs.readdirSync(this.postsDirectory)
-    return postSlugs.map((slug) => ({
+    const files = MarkdownFileReader.parseDirectory(this.postsDirectory)
+    return files.map((slug) => ({
       slug: slug.replace(/\.md$/, ''),
     }))
   }

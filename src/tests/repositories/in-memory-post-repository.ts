@@ -5,7 +5,7 @@ export class InMemoryPostRepository implements PostRepository {
   public items: Post[] = []
 
   async getPostBySlug(slug: string): Promise<Post | null> {
-    const post = this.items.find((post) => post.id === slug)
+    const post = this.items.find((post) => post.slug._value === slug)
     return post ?? null
   }
 
@@ -25,7 +25,7 @@ export class InMemoryPostRepository implements PostRepository {
 
   async fetchPostSlugs(): Promise<{ slug: string }[]> {
     const postSlugs = this.items.map((post) => ({
-      slug: post.id,
+      slug: post.slug._value,
     }))
     return postSlugs
   }

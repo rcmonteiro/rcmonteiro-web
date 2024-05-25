@@ -10,7 +10,7 @@ export default async function Home() {
       <Hero />
       <section className="space-y-8">
         {posts.map((post) => (
-          <PostItem key={post.id} post={post} />
+          <PostItem key={post.id.toString()} post={post} />
         ))}
       </section>
     </main>
