@@ -1,4 +1,4 @@
-import type { Project } from '@/core/entities/project'
+import type { Project } from '@/modules/blog/entities/project'
 import type { Id } from '@/shared/domain/entities/types/id'
 import type { PostRelated } from '@/shared/domain/entities/value-objects/post-related'
 import type { Slug } from '@/shared/domain/entities/value-objects/slug'
