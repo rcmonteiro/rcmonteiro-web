@@ -5,6 +5,7 @@ project: "Do Bairro"
 excerpt: "In this post, we explore implementing Clean Architecture in a monorepo using Next.js, Fastify, Postgres, and Prisma. By structuring our code into five layers—Domain, Application, Controller, Infrastructure, and User Interface"
 tags: ["Turborepo", "Clean Architecture", "Typescript"]
 repoUrl: "https://github.com/rcmonteiro/dobairro"
+next: "orchestrating-test-runs-across-application-layer-with-turborepo"
 ---
 When building a complex application, organizing your codebase effectively is crucial. This is where Clean Architecture shines. In this post, we'll explore how to structure your code using five layers in a turborepo project that leverages Next.js for the web, Fastify for the API, and Postgres with Prisma. We'll break down each layer and illustrate how they interact, ensuring your application is scalable, maintainable, and testable.
 
