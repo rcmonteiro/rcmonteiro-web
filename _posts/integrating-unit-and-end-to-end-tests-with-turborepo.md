@@ -1,6 +1,6 @@
 ---
 updatedAt: "2024-07-06T14:07:00.000Z"
-title: "Orchestrating Test Runs Across Application Layers with TurboRepo"
+title: "Integrating unit and end-to-end tests with turborepo"
 project: "Do Bairro"
 excerpt: "TurboRepo simplifies the orchestration of unit and end-to-end tests, ensuring domain-specific validation and adherence to SOLID principles. Maintain a robust test suite while keeping your codebase modular and adaptable."
 tags: ["Turborepo", "Clean Architecture", "Typescript", "CI/CD", "Testing"]
