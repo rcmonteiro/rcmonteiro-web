@@ -6,6 +6,7 @@ excerpt: "TurboRepo simplifies test orchestration across application layers, ens
 tags: ["Turborepo", "Clean Architecture", "Typescript", "CI/CD", "Testing"]
 repoUrl: "https://github.com/rcmonteiro/dobairro"
 prev: "structuring-your-code-with-clean-architecture-a-5-layer-approach"
+next: "integrating-unit-and-end-to-end-tests-with-turborepo"
 ---
 
 In this post, we'll explore the advantages of using TurboRepo to orchestrate test runs across different layers of your application. Specifically, we'll focus on unit tests executed within a GitHub CI pipeline. By leveraging TurboRepo, we can validate all domain use cases before pushing changes, ensuring that business rules remain intact without coupling to infrastructure or user interface concerns. This approach aligns with SOLID principles, particularly SRP (Single Responsibility Principle), OCP (Open-Closed Principle), and DIP (Dependency Inversion Principle).
