@@ -38,3 +38,5 @@ Given the difficulty of finding a job, I decided to embark on a new project that
   - Use Terraform to provision AWS resources such as ECR, App Runner, database, and Redis for cache management and rate limiting.
 
 The choice of a simple Todo App project allows the focus to remain on the development methodology and architecture rather than the complexity of the application itself, with a significant emphasis on the CI/CD pipeline.
+
+Follow along with the evolution of this project. This post was a summary of what will be built, and future posts will cover each stage of the project's construction in detail.
