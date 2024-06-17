@@ -5,6 +5,7 @@ project: "Utter Todo"
 excerpt: "This project uses TypeScript, React, Node, CI/CD, AWS, Docker, and Terraform to build a simple Todo App. Learn how to implement Nest.js and Next.js, test with Vitest and Playwright, and orchestrate AWS infrastructure using Terraform, all within a monorepo setup."
 tags: ["Turborepo", "Nest", "Next", "Typescript", "React"]
 repoUrl: "https://github.com/rcmonteiro/utter-todo"
+next: "day-one-setting-up-turbo-and-all-dependencies"
 ---
 Given the difficulty of finding a job, I decided to embark on a new project that we will explore here on the site. The goal is to incorporate all my learning in TypeScript, React, Node, CI/CD, AWS, Docker, Terraform, CA, SOLID, and DDD into a simple yet comprehensive project, making it easier to review each part of the code.
 

@@ -4,34 +4,34 @@
 
 @layer base {
   h1 {
-    @apply text-2xl my-4 text-dark-100;
+    @apply text-3xl my-4 text-dark-100;
   }
   h2 {
-    @apply text-xl mb-4 mt-8 text-dark-100;
+    @apply text-2xl mb-4 mt-8 text-dark-100;
   }
   h3 {
-    @apply text-lg mb-4 mt-8 text-dark-100;
+    @apply text-xl mb-4 mt-8 text-dark-100;
   }
   em {
     @apply text-dark-100;
   }
-  p {
-    @apply text-lg my-2;
+  p{
+    @apply text-lg my-4;
+  }
+  pre {
+    @apply text-lg my-6;
   }
   a {
     @apply text-highlight underline underline-offset-8;
-  }
-  pre {
-    @apply m-2 my-6 p-4 bg-black text-default rounded-md whitespace-break-spaces break-all ring-4 ring-black/20;
-  }
-  pre code span {
-    @apply text-highlight;
   }
   ul {
     @apply my-4;
   }
   ul li {
     @apply ml-4 list-disc my-2;
+  }
+  main p img {
+    @apply my-8 rounded-lg ring-highlight ring-8 ring-opacity-60
   }
 }
 
