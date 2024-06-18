@@ -31,7 +31,7 @@
     @apply ml-4 list-disc my-2;
   }
   main p img {
-    @apply my-8 rounded-lg ring-highlight ring-8 ring-opacity-60
+    @apply my-8 rounded-lg ring-highlight ring-8 ring-opacity-60 mx-auto
   }
 }
 

@@ -6,6 +6,7 @@ excerpt: "Let's install Turbo, t3-app, Nest, ESLint, Prettier, TypeScript, and e
 tags: ["Turborepo", "Nest", "Next", "TypeScript", "React"]
 repoUrl: "https://github.com/rcmonteiro/utter-todo"
 prev: "utter-todo-from-nothing-to-an-automated-cicd-deploying-on-aws"
+next: "day-two-the-business-rules"
 ---
 
 In this post, we will set up a Turborepo for the "Utter Todo" project. We'll install `t3-app`, `Nest`, `ESLint`, `Prettier`, and `TypeScript`, ensuring everything runs smoothly and is orchestrated by Turbo.
@@ -94,12 +95,12 @@ Add the following `package.json`:
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
-  "files": ["react.json", "node.json", "nest.json"]
+  "files": ["next.json", "node.json", "nest.json"]
 }
 ```
 
 Refer to the rules for each environment here:
-- [react.json](https://github.com/rcmonteiro/utter-todo/blob/main/config/typescript-config/react.json)
+- [next.json](https://github.com/rcmonteiro/utter-todo/blob/main/config/typescript-config/next.json)
 - [node.json](https://github.com/rcmonteiro/utter-todo/blob/main/config/typescript-config/node.json)
 - [nest.json](https://github.com/rcmonteiro/utter-todo/blob/main/config/typescript-config/nest.json)
 
@@ -258,24 +259,54 @@ Update the `package.json`:
 }
 ```
 
+Make some changes in the tsconfig.json:
+
+```json
+// ./packages/domain/tsconfig.json  
+
+{
+  "extends": "@utter-todo/typescript-config/node.json",
+  "include": [
+    "src/**/*",
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "vitest/globals"
+    ],
+    "allowJs": true,
+    "incremental": true,
+    "esModuleInterop": true,
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
 Install local dependencies:
 
 ```bash
 pnpm i
 ```
 
-Create a draft for the Todo entity to test if everything works:
+Create a draft for the Task entity to test if everything works:
 
 ```bash
 mkdir -p src/entities
 cd src/entities
-touch todo.ts
+touch task.ts
 ```
 
 ```typescript
-// ./packages/domain/entities/todo.ts
+// ./packages/domain/entities/task.ts
 
-export class Todo {
+export class Task {
   private id: string;
   private title: string;
 
@@ -305,7 +336,7 @@ Follow the prompts:
 - *Yes* for Tailwind CSS
 - *No* for tRPC
 - *None* for authentication
-- *Drizzle* for ORM
+- *None* for ORM
 - *Yes* for Next.js App Router
 - *PostgreSQL* for database provider
 - *No* for initializing a Git repository
@@ -327,7 +358,6 @@ Update `package.json`:
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
-    "drizzle-kit": "^0.21.4",
     "postcss": "^8.4.34",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.2"
@@ -371,16 +401,17 @@ Update `tsconfig.json`:
 // ./apps/web/tsconfig.json
 
 {
-  "extends": "@utter-todo/typescript-config/react.json",
-  "include": ["src/**/*", "@types/**/*"],
+  "extends": "@utter-todo/typescript-config/next.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-    },
-    "types": ["vitest/globals"]
-  }
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
+
 ```
 
 ### Setting Up the API Package
