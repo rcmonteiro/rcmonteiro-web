@@ -2,7 +2,7 @@
 updatedAt: "2024-06-18T14:00:00.000Z"
 title: "Day two - The Business Rules"
 project: "Utter Todo"
-excerpt: ""
+excerpt: "Here we will create the business rules for our Todo App, they will be the foundation of our application."
 tags: ["Clean Architecture", "Domain Driven Design", "Business Rules"]
 repoUrl: "https://github.com/rcmonteiro/utter-todo"
 prev: "day-one-setting-up-turbo-and-all-dependencies"
@@ -94,10 +94,8 @@ packages
 │   │   │   └── delete-task.test.ts
 │   │   │   └── fetch-tasks.ts
 │   │   │   └── fetch-tasks.test.ts
-│   │   │   └── mark-task-as-completed.ts
-│   │   │   └── mark-task-as-completed.test.ts
-│   │   │   └── update-task.ts
-│   │   │   └── update-task.test.ts
+│   │   │   └── toggle-task-completed.ts
+│   │   │   └── toggle-task-completed.test.ts
 │   │   └── index.ts
 ```
 
@@ -142,8 +140,12 @@ export class Task {
     this.#title = newTitle
   }
 
-  markAsCompleted(): void {
-    this.#completedAt = new Date()
+  toggleCompleted(): void {
+    if (this.isCompleted()) {
+      this.#completedAt = undefined
+    } else {
+      this.#completedAt = new Date()
+    }
   }
 
   isCompleted(): boolean {
@@ -154,6 +156,7 @@ export class Task {
     return !!title && title.length >= 3
   }
 }
+
 ```
 
 We will use a PostgreSQL database to store our tasks, but our domain will be agnostic to the database, so we can easily switch to another one in the future, and for that we need to create a repository for our Todo Entity:
@@ -305,8 +308,7 @@ You can check each use case and respective unit test here:
 - *./delete-task.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/delete-task.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/delete-task.test.ts)
 - *./fetch-tasks.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/fetch-tasks.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/fetch-tasks.test.ts)
 - *./get-task.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/get-task.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/get-task.test.ts)
-- *./update-task.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/update-task.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/update-task.test.ts)
-- *./mark-task-as-completed.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/mark-task-as-completed.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/mark-task-as-completed.test.ts)
+- *./toggle-task-completed.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/toggle-task-completed.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/toggle-task-completed.test.ts) - 
 
 
 Finally let's create the `index.ts` file in the domain package, we need to export all the resources we'll need in the application:
@@ -322,8 +324,7 @@ export * from './use-cases/create-task'
 export * from './use-cases/delete-task'
 export * from './use-cases/fetch-tasks'
 export * from './use-cases/get-task'
-export * from './use-cases/mark-task-as-completed'
-export * from './use-cases/update-task'
+export * from './use-cases/toggle-task-completed'
 
 // Entities
 export * from './entities/task'
