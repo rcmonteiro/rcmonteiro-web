@@ -6,7 +6,7 @@ excerpt: "Here we will create the business rules for our Todo App, they will be 
 tags: ["Clean Architecture", "Domain Driven Design", "Business Rules"]
 repoUrl: "https://github.com/rcmonteiro/utter-todo"
 prev: "day-one-setting-up-turbo-and-all-dependencies"
-next: "day-three-the-front-end-and-backend"
+next: "day-three-the-front-end"
 ---
 
 Let's start by setting up the domain package for business logic.
