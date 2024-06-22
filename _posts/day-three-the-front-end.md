@@ -14,7 +14,7 @@ Let's install some dependencies:
 
 ```bash
 pnpm add dayjs next-themes ky cookies-next
-pnpm add -D tailwind-variants @testing-library/jest-dom @testing-library/react @testing-library/user-event happy-dom @playwright/test @types/react @vitejs/plugin-react @faker-js/faker @next/eslint-plugin-next
+pnpm add -D tailwind-variants @faker-js/faker @next/eslint-plugin-next @types/react @testing-library/jest-dom @testing-library/react @testing-library/user-event happy-dom @playwright/test @vitejs/plugin-react 
 npx shadcn-ui@latest add avatar button dropdown-menu label input checkbox separator
 ```
 

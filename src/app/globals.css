@@ -33,6 +33,9 @@
   main p img {
     @apply my-8 rounded-lg ring-highlight ring-8 ring-opacity-60 mx-auto
   }
+  pre {
+    @apply w-full overflow-x-scroll
+  }
 }
 
 * {

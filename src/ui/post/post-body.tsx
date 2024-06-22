@@ -25,6 +25,8 @@ export const PostBody = ({ children }: IPostBody) => {
               <SyntaxHighlighter
                 style={dracula}
                 PreTag="pre"
+                wrapLines={true}
+                wrapLongLines={true}
                 language={match[1]}
                 {...props}
               >
