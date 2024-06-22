@@ -6,6 +6,7 @@ excerpt: "Here we will create the business rules for our Todo App, they will be 
 tags: ["Clean Architecture", "Domain Driven Design", "Business Rules"]
 repoUrl: "https://github.com/rcmonteiro/utter-todo"
 prev: "day-one-setting-up-turbo-and-all-dependencies"
+next: "day-three-the-front-end-and-backend"
 ---
 
 Let's start by setting up the domain package for business logic.
@@ -72,31 +73,28 @@ For this Todo App, we'll keep the things simple, as we want to focus on a comple
 The domain will have this project structure:
 
 ```
-packages
 ├── domain
-│   ├── src
-│   │   ├── _tests
-│   │   │   ├── repositories
-│   │   │   │   └── fake-task-repository.ts
-│   │   ├── entities
-│   │   │   └── value-objects
-│   │   │   │  └── id.ts
-│   │   │   └── task.ts
-│   │   ├── repositories
-│   │   │   └── task-repository.ts
-│   │   ├── use-cases
-│   │   │   └── _errors
-│   │   │   │   └── invalid-title-error.ts
-│   │   │   │   └── resource-not-found-error.ts
-│   │   │   └── create-task.ts
-│   │   │   └── create-task.test.ts
-│   │   │   └── delete-task.ts
-│   │   │   └── delete-task.test.ts
-│   │   │   └── fetch-tasks.ts
-│   │   │   └── fetch-tasks.test.ts
-│   │   │   └── toggle-task-completed.ts
-│   │   │   └── toggle-task-completed.test.ts
-│   │   └── index.ts
+│    ├── ___tests___
+│    │   ├── repositories
+│    │   │   └── fake-task-repository.ts
+│    ├── entities
+│    │   └── value-objects
+│    │   │  └── id.ts
+│    │   └── task.ts
+│    ├── repositories
+│    │   └── task-repository.ts
+│    ├── use-cases
+│    │   └── _errors
+│    │   │   └── invalid-title-error.ts
+│    │   │   └── resource-not-found-error.ts
+│    │   └── create-task.ts
+│    │   └── create-task.test.ts
+│    │   └── delete-task.ts
+│    │   └── delete-task.test.ts
+│    │   └── fetch-tasks.ts
+│    │   └── fetch-tasks.test.ts
+│    │   └── toggle-task-completed.ts
+│    │   └── toggle-task-completed.test.ts
 ```
 
 We can make our *Task Entity* a little better:
@@ -310,33 +308,6 @@ You can check each use case and respective unit test here:
 - *./get-task.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/get-task.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/get-task.test.ts)
 - *./toggle-task-completed.ts*: [code](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/toggle-task-completed.ts) | [unit test](https://github.com/rcmonteiro/utter-task/blob/main/packages/domain/src/use-cases/toggle-task-completed.test.ts) - 
 
-
-Finally let's create the `index.ts` file in the domain package, we need to export all the resources we'll need in the application:
-
-```typescript
-// ./packages/domain/src/index.ts 
-
-// Repositories
-export * from './repositories/task-repo'
-
-// Use cases
-export * from './use-cases/create-task'
-export * from './use-cases/delete-task'
-export * from './use-cases/fetch-tasks'
-export * from './use-cases/get-task'
-export * from './use-cases/toggle-task-completed'
-
-// Entities
-export * from './entities/task'
-export * from './entities/value-objects/id'
-
-// Errors
-export * from './use-cases/_errors/invalid-title-error'
-export * from './use-cases/_errors/resource-not-found-error'
-
-// Common
-export * from './common/either'
-```
 
 We can now run all the tests with turbo:
 

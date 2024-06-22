@@ -420,8 +420,9 @@ Install Nest.js for the API:
 
 ```bash
 cd apps
-nest new api
-pnpm add -D vitest
+pnpm init
+pnpm add drizzle-orm pg zod @fastify/cors @fastify/jwt  @fastify/swagger @fastify/swagger-ui dotenv-cli fastify fastify-plugin fastify-type-provider-zod jsonwebtoken zod
+pnpm add -D drizzle-kit @types/pg vitest @types/node
 ```
 
 Update `package.json`:
@@ -435,30 +436,45 @@ Update `package.json`:
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "test:e2e": "vitest run --dir ./src/http/controllers --no-file-parallelism",
+    "test:watch": "vitest --dir ./src/http/controllers --no-file-parallelism",
+    "build": "tsup", 
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/jwt": "^8.0.1",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^4.0.0",
+    "@utter-todo/domain": "workspace:*",
+    "dotenv-cli": "^7.4.2",
+    "drizzle-orm": "^0.31.2",
+    "fastify": "^4.28.0",
+    "fastify-plugin": "^4.5.1",
+    "fastify-type-provider-zod": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.3.1",
+    "@types/pg": "^8.11.6",
+    "@types/supertest": "^6.0.0",
     "@utter-todo/eslint-config": "workspace:*",
     "@utter-todo/prettier": "workspace:*",
     "@utter-todo/typescript-config": "workspace:*",
-    "@nestjs/cli": "^10.0.0",
-    "@nestjs/schematics": "^10.0.0",
-    "@nestjs/testing": "^10.0.0",
-    "@types/express": "^4.17.17",
-    "@types/node": "^20.3.1",
-    "@types/supertest": "^6.0.0",
-    "source-map-support": "^0.5.21",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.22.7",
     "supertest": "^6.3.3",
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "tsup": "^8.1.0",
+    "typescript": "^5.1.3",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.6.0"
   },
   "prettier": "@utter-todo/prettier",
   "eslintConfig": {
@@ -467,6 +483,7 @@ Update `package.json`:
     ]
   }
 }
+
 ```
 
 Update `tsconfig.json`:
@@ -475,32 +492,126 @@ Update `tsconfig.json`:
 // ./apps/api/tsconfig.json
 
 {
-  "extends": "@utter-todo/typescript-config/nest.json",
-  "include": ["src/**/*", "@types/**/*"],
+  "extends": "@utter-todo/typescript-config/node.json",
+  "include": ["."],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-    },
     "types": ["vitest/globals"]
   }
 }
 ```
 
-Change the Nest app port to avoid conflicts:
+Set env variables for the API:
 
 ```typescript
-// ./apps/api/src/main.ts
+// ./apps/api/src/env.ts
 
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { config } from 'dotenv'
+import { z } from 'zod'
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3333);
+config()
+
+const envSchema = z.object({
+  API_PORT: z.coerce.number().default(4000),
+  API_URL: z.string().url(),
+  DB_URL: z.string().url(),
+  DB_TEST_URL: z.string().url(),
+  JWT_SECRET: z.string(),
+  NODE_ENV: z.string().default('development'),
+})
+
+const _env = envSchema.safeParse(process.env)
+
+if (_env.success === false) {
+  console.error('❌ Invalid environment variables', _env.error.format())
+  throw new Error('Invalid environment variables')
 }
-bootstrap();
+
+export const env = _env.data
+```
+
+Set a basic fastify+zod+swagger app settings:
+
+```typescript
+// ./apps/api/src/app.ts
+
+import fastifyCors from '@fastify/cors'
+import fastifyJwt from '@fastify/jwt'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUI from '@fastify/swagger-ui'
+import fastify from 'fastify'
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from 'fastify-type-provider-zod'
+
+import { env } from './env'
+import { errorHandler } from './error-handler'
+import { createTaskController } from './http/controllers/create-task'
+import { deleteTaskController } from './http/controllers/delete-task'
+import { fetchTasksController } from './http/controllers/fetch-tasks'
+import { toggleTaskCompletedController } from './http/controllers/toggle-task-completed'
+
+export const app = fastify()
+
+app.withTypeProvider<ZodTypeProvider>()
+app.setSerializerCompiler(serializerCompiler)
+app.setValidatorCompiler(validatorCompiler)
+
+app.setErrorHandler(errorHandler)
+
+app.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: 'API RESTFul - Utter Todo',
+      description: '...',
+      version: '1.0.0',
+    },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+  },
+  transform: jsonSchemaTransform,
+})
+
+app.register(fastifySwaggerUI, {
+  routePrefix: '/docs',
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
+
+
+app.register(fastifyCors)
+```
+
+Finally, set the fastify app to listen on the API port:
+```typescript
+// ./apps/api/src/server.ts
+
+import { app } from './app'
+import { env } from './env'
+
+app
+  .listen({
+    host: '0.0.0.0',
+    port: env.API_PORT,
+  })
+  .then(() => {
+    console.log('')
+    console.log('🤘 Utter Todo API running!')
+  })
 ```
 
 Check if everything is running:
@@ -510,8 +621,6 @@ cd ..
 pnpm i
 pnpm run dev
 ```
-
-![alt text](/posts/utter-dependencies.png)
 
 ### Conclusion
 
