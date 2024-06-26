@@ -2,7 +2,7 @@
 updatedAt: "2024-06-21T14:00:00.000Z"
 title: "Day four - The Back End"
 project: "Utter Todo"
-excerpt: ""
+excerpt: "The back-end is a Node.js application built with Fastify and Drizzle ORM. It uses a PostgreSQL database to store and retrieve data."
 tags: ["Node.js", "Fastify", "Drizzle ORM"]
 repoUrl: "https://github.com/rcmonteiro/utter-todo"
 prev: "day-three-the-front-end"
